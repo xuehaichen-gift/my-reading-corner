@@ -1,0 +1,5 @@
+{
+  "name": "My Reading Corner",
+  "description": "A personal reading tracking and notes application inspired by Douban Books, featuring categorization, status tracking, and AI-powered book search.",
+  "requestFramePermissions": []
+}
