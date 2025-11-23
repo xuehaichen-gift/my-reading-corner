@@ -1,9 +1,14 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { SearchResultBook } from "./types";
 
+// Fix for TypeScript error: "Cannot find name 'process'"
+declare const process: any;
+
 const getAiClient = () => {
+  // In Vite, we will use the 'define' plugin to replace process.env.API_KEY
+  // but we keep this check for safety.
   if (!process.env.API_KEY) {
-    throw new Error("API Key not found");
+    console.warn("API Key might be missing. Ensure process.env.API_KEY is defined in build.");
   }
   return new GoogleGenAI({ apiKey: process.env.API_KEY });
 };
@@ -11,8 +16,6 @@ const getAiClient = () => {
 export const searchBooksViaGemini = async (query: string): Promise<SearchResultBook[]> => {
   const ai = getAiClient();
 
-  // We ask Gemini to act as a Douban Book search proxy.
-  // It returns structured JSON data.
   const prompt = `
     Search for books related to the query: "${query}". 
     Imagine you are searching the Douban Books database.
@@ -37,8 +40,6 @@ export const searchBooksViaGemini = async (query: string): Promise<SearchResultB
               author: { type: Type.STRING },
               intro: { type: Type.STRING },
               category: { type: Type.STRING },
-              // We omit coverUrl from schema to keep it simple, 
-              // we will generate placeholders on the frontend based on title seed.
             },
             required: ["title", "author", "category"]
           }
