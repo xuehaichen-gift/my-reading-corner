@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Search, BookOpen, Layers, Plus, Grid, List, Edit, Download, Upload, FileJson } from 'lucide-react';
 import { Book, Category, ViewMode, ReadingStatus } from './types';
 import { INITIAL_BOOKS, CATEGORIES, STATUS_LABELS, STATUS_COLORS } from './constants';
-import { Button } from './components/Button';
-import { AddBookModal } from './components/AddBookModal';
-import { BookDetailModal } from './components/BookDetailModal';
+import { Button } from './Button';
+import { AddBookModal } from './AddBookModal';
+import { BookDetailModal } from './BookDetailModal';
 
 // --- Header Component ---
 const Header = ({ 
